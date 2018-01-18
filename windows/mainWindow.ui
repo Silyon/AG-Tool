@@ -14,47 +14,67 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GUI Program</string>
+   <string>AG Tool</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../res/icon/icon.png</normaloff>../res/icon/icon.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>950</x>
-      <y>610</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Close</string>
-    </property>
-   </widget>
-   <widget class="QListView" name="listView">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>440</y>
-      <width>1011</width>
-      <height>161</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>420</y>
-      <width>131</width>
-      <height>16</height>
+      <width>1021</width>
+      <height>211</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Currently Loaded Anime:</string>
+    <property name="currentIndex">
+     <number>0</number>
     </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Loaded Anime</string>
+     </attribute>
+     <widget class="QListView" name="listView">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1011</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-style: none;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>160</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Browse</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -67,7 +87,20 @@
      <height>21</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">selection-color:rgb(255,255,255); 
+selection-background-color:rgb(100,149,237);
+border-bottom: 1px;
+border-bottom-color: grey;
+border-bottom-style: outset;
+width: 50px;
+</string>
+   </property>
    <widget class="QMenu" name="menuFile">
+    <property name="styleSheet">
+     <string notr="true">text-align: center;
+width: 200px;</string>
+    </property>
     <property name="title">
      <string>File</string>
     </property>
@@ -77,7 +110,7 @@
   </widget>
   <action name="actionScan_Seasonal_Anime">
    <property name="text">
-    <string>Scan Seasonal Anime</string>
+    <string>Scan Seasonal Anime (Ctrl + S)</string>
    </property>
   </action>
  </widget>

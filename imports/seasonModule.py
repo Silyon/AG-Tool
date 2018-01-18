@@ -27,9 +27,6 @@ def main(season, aniDump):
     
     #Checking if the input is valid
     while isOk == False:
-        #season = raw_input("What season do you want parsed [season][year]: ").lower()
-        
-        #season = []
         seasonProc = season.split(' ')
     
         i = 0
@@ -43,9 +40,6 @@ def main(season, aniDump):
                 
         if i == 1 and len(seasonProc) == 2:
             isOk = True
-    
-    #aniDump = raw_input("Do you want me to dump the titles of the anime here [y/n]: ")
-    
     request = "https://myanimelist.net/anime/season/"
     filename = ""
     
@@ -75,6 +69,7 @@ def main(season, aniDump):
     startTimes = soup.find_all('span', class_="remain-time")
     allProducers = soup.find_all('span', class_="producer")
     allTypes = soup.find_all('div', class_="info")
+    allPictures = soup.find_all('div', class_="image")
     #############
     
     titles = []
@@ -82,6 +77,14 @@ def main(season, aniDump):
     times = []
     producers = []
     atype = []
+    pictures = []
+    
+    for picture in allPictures:
+        im = str(picture.img)
+        im = im[im.find('src=')+5:im.find('.jpg')+4]
+       #print(im)
+        pictures.append(str(im))
+        
     
     #Getting the titles of all of the anime
     #and also all of the links by cutting out the bits between the found indexes
@@ -135,12 +138,19 @@ def main(season, aniDump):
     except OSError as e:
         if e.errno != errno.EEXISTS:
             raise
+            
+    try:
+        os.remove(directory + filename)
+    except OSError as e:
+        if e.errno != errno.ENOENT:
+            raise
     
     with open(directory + filename, 'a+') as the_file:
         print('<?xml version="1.0" encoding="utf-8"?>', file = the_file)
+        print('<list>', file = the_file)
     
         for i in range(0,len(titles)):
-            entry = AniEntry.AniEntry(titles[i], links[i], producers[i], dates[i], atype[i])
+            entry = AniEntry.AniEntry(titles[i], links[i], producers[i], dates[i], pictures[i], atype[i])
             if entry.time.checkSeason(season) and entry.atype == "TV":
                 aniContainer.append(entry)
                 if(aniDump == "y"):
@@ -151,14 +161,22 @@ def main(season, aniDump):
             print(theAnis.encode('utf-8'))
     
         for entry in aniContainer:
-            print("<anime>", file = the_file)
-            print("\t<title>" + strOrUnicode(entry.title) + "</title>", file = the_file)
-            print("\t<producer>" + strOrUnicode(entry.producer) + "</producer>", file = the_file)
-            print("\t<link>" + strOrUnicode(entry.link) + "</link>", file = the_file)
-            print("\t<type>" + strOrUnicode(entry.atype) + "</type>", file = the_file)
-            print("\t<date>" + entry.time.toString + "</date>", file = the_file)
-            print("</anime>\n", file = the_file)
+            entry.title = entry.title.replace("&", "&amp;")
+            entry.producer = entry.producer.replace("&", "&amp;")
+            entry.link = entry.link.replace("&", "&amp;")
+            entry.atype = entry.atype.replace( "&", "&amp;")
+            
+            print("\t<anime>", file = the_file)
+            print("\t\t<title>" + strOrUnicode(entry.title) + "</title>", file = the_file)
+            print("\t\t<producer>" + strOrUnicode(entry.producer) + "</producer>", file = the_file)
+            print("\t\t<link>" + strOrUnicode(entry.link) + "</link>", file = the_file)
+            print("\t\t<picture>" + strOrUnicode(entry.picture) + "</picture>", file = the_file)
+            print("\t\t<type>" + strOrUnicode(entry.atype) + "</type>", file = the_file)
+            print("\t\t<date>" + entry.time.toString + "</date>", file = the_file)
+            print("\t</anime>\n", file = the_file)
 
+    
+        print('</list>', file = the_file)
 
 if __name__ == "__main__":
      season = raw_input("What season do you want parsed [season][year]: ").lower()

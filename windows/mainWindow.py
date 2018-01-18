@@ -13,26 +13,46 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.NonModal)
         MainWindow.resize(1032, 680)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../res/icon/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedKingdom))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(950, 610, 75, 23))
-        self.pushButton.setObjectName("pushButton")
-        self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setGeometry(QtCore.QRect(10, 440, 1011, 161))
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setGeometry(QtCore.QRect(10, 420, 1021, 211))
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.listView = QtWidgets.QListView(self.tab)
+        self.listView.setGeometry(QtCore.QRect(0, 0, 1011, 151))
+        self.listView.setStyleSheet("border-style: none;")
         self.listView.setObjectName("listView")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 420, 131, 16))
-        self.label.setObjectName("label")
+        self.pushButton_2 = QtWidgets.QPushButton(self.tab)
+        self.pushButton_2.setGeometry(QtCore.QRect(10, 160, 71, 21))
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1032, 21))
+        self.menubar.setStyleSheet("selection-color:rgb(255,255,255); \n"
+"selection-background-color:rgb(100,149,237);\n"
+"border-bottom: 1px;\n"
+"border-bottom-color: grey;\n"
+"border-bottom-style: outset;\n"
+"width: 50px;\n"
+"")
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
+        self.menuFile.setStyleSheet("text-align: center;\n"
+"width: 200px;")
         self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menubar)
         self.actionScan_Seasonal_Anime = QtWidgets.QAction(MainWindow)
@@ -41,15 +61,17 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "GUI Program"))
-        self.pushButton.setText(_translate("MainWindow", "Close"))
-        self.label.setText(_translate("MainWindow", "Currently Loaded Anime:"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "AG Tool"))
+        self.pushButton_2.setText(_translate("MainWindow", "Browse"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Loaded Anime"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
-        self.actionScan_Seasonal_Anime.setText(_translate("MainWindow", "Scan Seasonal Anime"))
+        self.actionScan_Seasonal_Anime.setText(_translate("MainWindow", "Scan Seasonal Anime (Ctrl + S)"))
 
 
 if __name__ == "__main__":

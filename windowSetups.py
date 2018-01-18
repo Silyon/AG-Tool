@@ -10,6 +10,8 @@ import datetime
 
 
 class MainWin(QtWidgets.QMainWindow):
+    filename = ""
+    
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.ui = mainWindow.Ui_MainWindow()
@@ -20,11 +22,19 @@ class MainWin(QtWidgets.QMainWindow):
         
     def setupSignals(self):
         self.ui.actionScan_Seasonal_Anime.triggered.connect(self.openScanner)
-        self.ui.pushButton.clicked.connect(self.closeButton)
-    
-    def closeButton(self):
-        self.close()
-    
+        self.ui.pushButton_2.clicked.connect(self.openFile)
+        self.ui.shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+S"), self)
+        self.ui.shortcut.activated.connect(self.openScanner)
+        
+        
+    def openFile(self):
+        filters = "*.xml"
+        selected_filter = "XML Files (*.xml)"
+        self.filename, fill = QtWidgets.QFileDialog.getOpenFileName(self, "Open XML File", filters, selected_filter)
+        print("Opened: " + self.filename)
+        
+        self.setupListView()
+
     def openScanner(self):
         if not self.scannerWin:
             self.scannerWin = ScannerWin()
@@ -37,14 +47,22 @@ class MainWin(QtWidgets.QMainWindow):
             self.scannerWin.show()
             
     def setupListView(self):
-        xmlList = XL.xmlToList("./res/saved_seasons/Winter2018.xml")
-        model = QtGui.QStandardItemModel(self.ui.listView)
-        
-        for i in xmlList:
-            item = QtGui.QStandardItem(i.title)
-            model.appendRow(item)
+        if self.filename == "":
+            modelEmpty = QtGui.QStandardItemModel(self.ui.listView)
+            item = QtGui.QStandardItem("No File Opened")
+            modelEmpty.appendRow(item)
             
-        self.ui.listView.setModel(model)
+            self.ui.listView.setModel(modelEmpty)
+            
+        else:
+            xmlList = XL.xmlToList(self.filename)
+            model = QtGui.QStandardItemModel(self.ui.listView)
+            
+            for i in xmlList:
+                item = QtGui.QStandardItem(i.title)
+                model.appendRow(item)
+                
+            self.ui.listView.setModel(model)
     
 class ScannerWin(QtWidgets.QMainWindow):
     seasonSelect = "Winter"
@@ -62,6 +80,8 @@ class ScannerWin(QtWidgets.QMainWindow):
         self.ui.comboBox_2.activated.connect(self.handleActivated2)
         self.ui.pushButton.clicked.connect(self.on_click1)
         self.ui.pushButton_2.clicked.connect(self.on_click2)
+        self.ui.shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Escape"), self)
+        self.ui.shortcut.activated.connect(self.on_click2)
         
     def setupYearList(self):
         for i in range(datetime.datetime.now().year, 1916, -1):

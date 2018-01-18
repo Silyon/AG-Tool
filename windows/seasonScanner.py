@@ -56,7 +56,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "GUI Program"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Seasonal Anime Scanner"))
         self.comboBox.setItemText(0, _translate("MainWindow", "Winter"))
         self.comboBox.setItemText(1, _translate("MainWindow", "Spring"))
         self.comboBox.setItemText(2, _translate("MainWindow", "Summer"))
