@@ -34,7 +34,7 @@ class MainWin(QtWidgets.QMainWindow):
         self.filename, fill = QtWidgets.QFileDialog.getOpenFileName(self, "Open XML File", filters, selected_filter)
         print("Opened: " + self.filename)
         
-        self.setupTableView()
+        self.updateTable()
 
     def openScanner(self):
         if not self.scannerWin:
@@ -47,14 +47,16 @@ class MainWin(QtWidgets.QMainWindow):
             print("Showing")
             self.scannerWin.show()
             
-            
+    def updateTable(self):
+        xmlMatrix = XL.xmlToMatrix(self.filename)
+        model2 = CTableView.TableModel(CTableView.header, xmlMatrix)
+        self.ui.tableView.setModel(model2)
+        self.ui.tableView.update()
+
+        
     def setupTableView(self):
         if self.filename == "":
             model = CTableView.TableModel(CTableView.header, CTableView.tabledata)
-            self.ui.tableView.setModel(model)
-        else:
-            xmlMatrix = XL.xmlToMatrix(self.filename)
-            model = CTableView.TableModel(CTableView.header, xmlMatrix)
             self.ui.tableView.setModel(model)
             
         self.ui.tableView.setShowGrid(False)

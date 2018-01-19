@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1032</width>
+    <width>1024</width>
     <height>680</height>
    </rect>
   </property>
@@ -21,37 +21,47 @@
     <normaloff>../res/icon/icon.png</normaloff>../res/icon/icon.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true"/>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>8</x>
-      <y>616</y>
-      <width>71</width>
-      <height>21</height>
+      <x>0</x>
+      <y>400</y>
+      <width>1025</width>
+      <height>233</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Browse</string>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>8</x>
-      <y>408</y>
-      <width>1016</width>
-      <height>193</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-style: none;</string>
-    </property>
+    <widget class="QTableView" name="tableView">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>8</y>
+       <width>1009</width>
+       <height>193</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-style: none;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>208</y>
+       <width>71</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Browse</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -60,7 +70,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1032</width>
+     <width>1024</width>
      <height>21</height>
     </rect>
    </property>

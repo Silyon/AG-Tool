@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './windows/mainwindow.ui'
+# Form implementation generated from reading ui file './windows/mainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
 #
@@ -12,27 +12,30 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.NonModal)
-        MainWindow.resize(1032, 680)
+        MainWindow.resize(1024, 680)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../res/icon/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
+        MainWindow.setStyleSheet("")
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedKingdom))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(8, 616, 71, 21))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.tableView = QtWidgets.QTableView(self.centralwidget)
-        self.tableView.setGeometry(QtCore.QRect(8, 408, 1016, 193))
+        self.widget = QtWidgets.QWidget(self.centralwidget)
+        self.widget.setGeometry(QtCore.QRect(0, 400, 1025, 233))
+        self.widget.setObjectName("widget")
+        self.tableView = QtWidgets.QTableView(self.widget)
+        self.tableView.setGeometry(QtCore.QRect(8, 8, 1009, 193))
         self.tableView.setStyleSheet("border-style: none;")
         self.tableView.setObjectName("tableView")
+        self.pushButton_2 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_2.setGeometry(QtCore.QRect(8, 208, 71, 21))
+        self.pushButton_2.setObjectName("pushButton_2")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1032, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 21))
         self.menubar.setStyleSheet("selection-color:rgb(255,255,255); \n"
 "selection-background-color:rgb(100,149,237);\n"
 "border-bottom: 1px;\n"
