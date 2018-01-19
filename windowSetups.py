@@ -6,6 +6,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from windows import mainWindow, seasonScanner
 from imports import seasonModule
 from imports import xmlToList as XL
+from imports import CTableView
 import datetime
 
 
@@ -18,7 +19,7 @@ class MainWin(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.scannerWin = None
         self.setupSignals()
-        self.setupListView()
+        self.setupTableView()
         
     def setupSignals(self):
         self.ui.actionScan_Seasonal_Anime.triggered.connect(self.openScanner)
@@ -33,7 +34,7 @@ class MainWin(QtWidgets.QMainWindow):
         self.filename, fill = QtWidgets.QFileDialog.getOpenFileName(self, "Open XML File", filters, selected_filter)
         print("Opened: " + self.filename)
         
-        self.setupListView()
+        self.setupTableView()
 
     def openScanner(self):
         if not self.scannerWin:
@@ -46,23 +47,23 @@ class MainWin(QtWidgets.QMainWindow):
             print("Showing")
             self.scannerWin.show()
             
-    def setupListView(self):
+            
+    def setupTableView(self):
         if self.filename == "":
-            modelEmpty = QtGui.QStandardItemModel(self.ui.listView)
-            item = QtGui.QStandardItem("No File Opened")
-            modelEmpty.appendRow(item)
-            
-            self.ui.listView.setModel(modelEmpty)
-            
+            model = CTableView.TableModel(CTableView.header, CTableView.tabledata)
+            self.ui.tableView.setModel(model)
         else:
-            xmlList = XL.xmlToList(self.filename)
-            model = QtGui.QStandardItemModel(self.ui.listView)
+            xmlMatrix = XL.xmlToMatrix(self.filename)
+            model = CTableView.TableModel(CTableView.header, xmlMatrix)
+            self.ui.tableView.setModel(model)
             
-            for i in xmlList:
-                item = QtGui.QStandardItem(i.title)
-                model.appendRow(item)
-                
-            self.ui.listView.setModel(model)
+        self.ui.tableView.setShowGrid(False)
+        
+        hview = CTableView.HeaderView(self.ui.tableView)
+        self.ui.tableView.setHorizontalHeader(hview)
+        self.ui.tableView.verticalHeader().hide()
+        
+        self.ui.tableView.setAlternatingRowColors(True)
     
 class ScannerWin(QtWidgets.QMainWindow):
     seasonSelect = "Winter"

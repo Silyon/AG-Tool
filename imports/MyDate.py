@@ -3,8 +3,24 @@ class MyDate:
         self.day = day
         self.month = month
         self.year = year
-        self.toString = str(self.day) + "." + str(self.month) + "." + str(self.year)
-
+        
+        if self.month < 10:
+            displayMonth = "0" + str(self.month)
+        else:
+            displayMonth = str(self.month)
+            
+        displayDay = str(self.day)
+        
+        if not self.day == '?':          
+            if int(self.day) < 10:
+                displayDay = "0" + displayDay
+               
+            
+        print(displayDay)
+        
+        self.toString = displayDay + "." + displayMonth + "." + str(self.year)
+    
+    #I have no idea what this does anymore but it might be important
     def checkSeason(self, season):
         se = season.split(' ')
         change = False
